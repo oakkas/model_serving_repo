@@ -1,0 +1,124 @@
+swagger: "2.0"
+
+info:
+  title: "API For Serving Models"
+  description: "Models Serving API"
+  termsOfService: Test Usage
+  version: "0.1.0"
+  contact:
+    name: Oguz Akkas
+    email: oakkas84@gmail.com
+
+schemes:
+  - https
+
+consumes:
+  - application/json
+
+produces:
+  - application/json
+
+paths:
+  /healthcheck:
+    get:
+      summary: A health check
+      description: A health check endpoint
+      x-swagger-router-controller: api_test_module
+      operationId: healthcheck
+      tags:
+        - healthcheck
+      responses:
+        200:
+          description: Server is healthy
+          schema:
+            type: string
+            example: "OK"
+  /model_serve:
+    post:
+      summary: Based on input data return predictions
+      description: Add a description
+      x-swagger-router-controller: api_test_module #this is the python module that is custom written
+      operationId: test_model_serve_function #this is the serving function inside the above module
+      tags:
+        - test_model_serve_function
+      parameters:
+        - in: body
+          name: payload
+          description: a json input with model input data
+          schema:
+            $ref: '#/definitions/wine_model_data'
+      responses:
+          200:
+            description: json return
+            schema:
+              type: object
+
+definitions:
+  sample_model_data: #give a name to use as a reference above
+    type: object
+    required:
+      - input1
+      - input2
+      - input3
+      - input4
+    properties:
+      input1:
+        type: string
+        example: "hello"
+      input2:
+        type: integer
+        example: 9
+      input3:
+        type: "number"
+        example: 1.23
+      input4:
+        type: "boolean"
+        example: 1
+  wine_model_data: #give a name to use as a reference above
+    type: object
+    required:
+      - fixed_acidity
+      - volatile_acidity
+      - citric_acid
+      - residual_sugar
+      - chlorides
+      - free_sulfur_dioxide
+      - total_sulfur_dioxide
+      - density
+      - pH
+      - sulphates
+      - alcohol
+    properties:
+      fixed_acidity:
+        type: number
+        example: 1.5
+      volatile_acidity:
+        type: number
+        example: 0.7
+      citric_acid:
+        type: number
+        example: 0.04
+      residual_sugar:
+        type: number
+        example: 1.9
+      chlorides:
+        type: number
+        example: 1.9
+      free_sulfur_dioxide:
+        type: number
+        example: 11.0
+      total_sulfur_dioxide:
+        type: number
+        example: 34.0
+      density:
+        type: number
+        example: 0.99
+      pH:
+        type: number
+        example: 3.51
+      sulphates: 
+        type: number
+        example: 0.56
+      alcohol:
+        type: number
+        example: 9.4
